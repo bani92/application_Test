@@ -1,37 +1,39 @@
 package me.whiteship.inflearnjavatest;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class StudyTest {
 
-    @Test
-    @DisplayName("스터디 만들기")
+    @FastTest
+    @DisplayName("스터디 만들기 fast")
     void create() {
-
-        assertTimeout(Duration.ofMillis(100), () -> {
-            new Study(10);
-            Thread.sleep(300);
-        });
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Study(-10));
-        assertEquals("limit은 0보다 커야한다.",exception.getMessage());
-
-//        assertAll(
-//                () -> assertNotNull(study),
-//                () -> assertEquals(StudyStatus.DRAFT, study.getStatus(), "스터디를 처음 만들면 상태값이 DRAFT여야 한다."),
-//                () -> assertTrue(study.getLimit() > 0, "스터디 최대 참석 가능 인원은 0보다 커야한다.")
-//        );
-
+        Study study = new Study(100);
     }
 
-    @Test
-    @Disabled
+    @SlowTest
+    @DisplayName("스터디 만들기 slow")
     void create1() {
         System.out.println("create1");
+    }
+
+    @DisplayName("스터디 만들기")
+    @RepeatedTest(value = 10, name = "{displayName} , {currentRepetition} / {totalRepetitions}")
+    void repeatTest(RepetitionInfo repetitionInfo) {
+        System.out.println("test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
+    }
+
+    @DisplayName("스터디 만들기!")
+    @ParameterizedTest(name = "{index} - {displayName} message = {0}")
+    @ValueSource(strings = {"날씨가" ,"많이", "추워지고", "있네요"})
+    void parameterizedTest(String message) {
+        System.out.println(message);
     }
 
     @BeforeAll
