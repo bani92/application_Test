@@ -3,6 +3,7 @@ package me.whiteship.inflearnjavatest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
@@ -20,9 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 
-@ExtendWith(FindSlowTestExtension.class)
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
+
+    @RegisterExtension
+    static FindSlowTestExtension findSlowTestExtension = new FindSlowTestExtension(1000L);
 
     @Order(2)
     @FastTest
@@ -33,7 +37,7 @@ class StudyTest {
     }
 
     @Order(1)
-    @SlowTest
+    @Test
     @DisplayName("스터디 만들기 slow")
     void create1() throws InterruptedException {
         Thread.sleep(1005L);
