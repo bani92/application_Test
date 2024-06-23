@@ -1,6 +1,7 @@
 package me.whiteship.inflearnjavatest;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
@@ -18,19 +19,28 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+
+@ExtendWith(FindSlowTestExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
+    @Order(2)
     @FastTest
     @DisplayName("스터디 만들기 fast")
     void create() {
+        System.out.println(this);
         Study study = new Study(100);
     }
 
+    @Order(1)
     @SlowTest
     @DisplayName("스터디 만들기 slow")
-    void create1() {
+    void create1() throws InterruptedException {
+        Thread.sleep(1005L);
+        System.out.println(this);
         System.out.println("create1");
     }
+
 
     @DisplayName("스터디 만들기")
     @RepeatedTest(value = 10, name = "{displayName} , {currentRepetition} / {totalRepetitions}")
@@ -38,6 +48,7 @@ class StudyTest {
         System.out.println("test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
     }
 
+    @Order(3)
     @DisplayName("스터디 만들기!")
     @ParameterizedTest(name = "{index} - {displayName} message = {0}")
     @CsvSource({"10, '자바 스터디'", "20, 스프링"})
