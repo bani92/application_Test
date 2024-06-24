@@ -1,5 +1,6 @@
 package me.whiteship.inflearnjavatest;
 
+import me.whiteship.inflearnjavatest.domain.Study;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
