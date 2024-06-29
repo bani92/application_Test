@@ -27,14 +27,14 @@ public class StudyService {
             throw new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'");
         }
         Study newstudy = repository.save(study);
-  //      memberService.notify(newstudy);
+        memberService.notify(newstudy);
         return newstudy;
     }
 
     public Study openStudy(Study study) {
         study.open();
         Study openedStudy = repository.save(study);
-    //    memberService.notify(openedStudy);
+        memberService.notify(openedStudy);
         return openedStudy;
     }
 
