@@ -24,8 +24,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+
+//    testImplementation "org.testcontainers:testcontainers:1.19.2"
+     testImplementation "org.testcontainers:junit-jupiter:1.19.2"
+//    testImplementation "org.testcontainers:mysql:1.19.2"
+
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
