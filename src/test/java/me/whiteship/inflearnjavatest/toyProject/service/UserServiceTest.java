@@ -30,7 +30,6 @@ import static org.mockito.ArgumentMatchers.any;
     @Sql(scripts = "/sql/user-service-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(scripts = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-
 class UserServiceTest {
 
 
