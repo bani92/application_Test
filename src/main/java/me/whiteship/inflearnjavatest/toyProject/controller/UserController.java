@@ -26,7 +26,7 @@ public class UserController {
 
     @ResponseStatus
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable long id) {
+    public ResponseEntity<UserResponse> getUserById(@PathVariable("id") long id) {
         return ResponseEntity
             .ok()
             .body(toResponse(userService.getById(id)));
@@ -34,8 +34,8 @@ public class UserController {
 
     @GetMapping("/{id}/verify")
     public ResponseEntity<Void> verifyEmail(
-        @PathVariable long id,
-        @RequestParam String certificationCode) {
+        @PathVariable("id") long id,
+        @RequestParam("certificationCode") String certificationCode) {
         userService.verifyEmail(id, certificationCode);
         return ResponseEntity.status(HttpStatus.FOUND)
             .location(URI.create("http://localhost:3000"))
