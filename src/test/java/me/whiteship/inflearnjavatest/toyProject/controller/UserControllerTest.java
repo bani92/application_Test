@@ -1,6 +1,7 @@
 package me.whiteship.inflearnjavatest.toyProject.controller;
 
 import me.whiteship.inflearnjavatest.toyProject.model.UserStatus;
+import me.whiteship.inflearnjavatest.toyProject.model.dto.UserUpdateDto;
 import me.whiteship.inflearnjavatest.toyProject.repository.UserEntity;
 import me.whiteship.inflearnjavatest.toyProject.repository.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -9,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -32,8 +37,10 @@ public class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Test
-    void 사용자는_특정_유저의_정보를_전달받을수있다() throws Exception{
+    void 사용자는_특정_유저의_정보를_개인정보는_소거된채_전달받을수있다() throws Exception{
         //given
         //when
         //then
@@ -41,7 +48,8 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.email").value("banseok@naver.com"))
-                .andExpect(jsonPath("$.nickname").value("bani"));
+                .andExpect(jsonPath("$.nickname").value("bani"))
+                .andExpect(jsonPath("$.address").doesNotExist())                ;
     }
 
     @Test
@@ -82,4 +90,26 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    void 사용자는_내_정보를_수정할_수_있다() throws Exception{
+        //given
+        UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+                .nickname("bani33")
+                .address("Seoul2")
+                .build();
+        //when
+        //then
+        mockMvc.perform(put("/api/users/me")
+                .header("EMAIL","banseok@naver.com")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userUpdateDto)))
+
+                // .queryParam("certificationCode","aaaaaaa-aa"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.email").value("banseok@naver.com"))
+                .andExpect(jsonPath("$.nickname").value("bani33"))
+                .andExpect(jsonPath("$.address").value("Seoul2"));
+
+    }
 }
