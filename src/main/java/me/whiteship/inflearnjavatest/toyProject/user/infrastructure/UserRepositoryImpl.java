@@ -2,6 +2,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
+import me.whiteship.inflearnjavatest.toyProject.user.service.port.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

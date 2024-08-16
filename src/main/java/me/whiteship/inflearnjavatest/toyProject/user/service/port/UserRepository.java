@@ -1,6 +1,7 @@
-package me.whiteship.inflearnjavatest.toyProject.user.infrastructure;
+package me.whiteship.inflearnjavatest.toyProject.user.service.port;
 
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
+import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
 
 import java.util.Optional;
 

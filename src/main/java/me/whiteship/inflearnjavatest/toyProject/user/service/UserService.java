@@ -9,9 +9,7 @@ import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserCreate;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserUpdate;
 import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserRepository;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import me.whiteship.inflearnjavatest.toyProject.user.service.port.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +21,8 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final JavaMailSender mailSender;
+    private final CertificationService certificationService;
+
 
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
@@ -44,8 +43,7 @@ public class UserService {
         userEntity.setStatus(UserStatus.PENDING);
         userEntity.setCertificationCode(UUID.randomUUID().toString());
         userEntity = userRepository.save(userEntity);
-        String certificationUrl = generateCertificationUrl(userEntity);
-        sendCertificationEmail(userCreate.getEmail(), certificationUrl);
+        certificationService.send(userCreate.getEmail(), userEntity.getId(), userEntity.getCertificationCode());
         return userEntity;
     }
 
@@ -73,15 +71,4 @@ public class UserService {
         userEntity.setStatus(UserStatus.ACTIVE);
     }
 
-    private void sendCertificationEmail(String email, String certificationUrl) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Please certify your email address");
-        message.setText("Please click the following link to certify your email address: " + certificationUrl);
-        mailSender.send(message);
-    }
-
-    private String generateCertificationUrl(UserEntity userEntity) {
-        return "http://localhost:8080/api/users/" + userEntity.getId() + "/verify?certificationCode=" + userEntity.getCertificationCode();
-    }
 }
