@@ -3,7 +3,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.controller;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserUpdate;
 import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserRepository;
+import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserJpaRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -67,7 +67,7 @@ public class UserControllerTest {
         //then
         mockMvc.perform(get("/api/users/2/verify").queryParam("certificationCode","aaaaaaa-aa"))
                 .andExpect(status().isFound());
-        UserEntity userEntity = userRepository.findById(2L).get();
+        UserEntity userEntity = userJpaRepository.findById(2L).get();
         Assertions.assertThat(userEntity.getId()).isEqualTo(2L);
         Assertions.assertThat(userEntity.getAddress()).isEqualTo("Seoul");
         Assertions.assertThat(userEntity.getStatus()).isNotNull();

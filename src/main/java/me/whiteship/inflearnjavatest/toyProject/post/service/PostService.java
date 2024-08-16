@@ -2,11 +2,11 @@ package me.whiteship.inflearnjavatest.toyProject.post.service;
 
 
 import lombok.RequiredArgsConstructor;
+import me.whiteship.inflearnjavatest.toyProject.post.service.port.PostRepository;
 import me.whiteship.inflearnjavatest.toyProject.user.exception.ResourceNotFoundException;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostCreate;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostUpdate;
 import me.whiteship.inflearnjavatest.toyProject.post.infrastructure.PostEntity;
-import me.whiteship.inflearnjavatest.toyProject.post.infrastructure.PostRepository;
 import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
 import me.whiteship.inflearnjavatest.toyProject.user.service.UserService;
 import org.springframework.stereotype.Service;
