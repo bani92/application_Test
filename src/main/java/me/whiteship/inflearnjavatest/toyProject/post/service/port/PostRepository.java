@@ -1,12 +1,12 @@
 package me.whiteship.inflearnjavatest.toyProject.post.service.port;
 
-import me.whiteship.inflearnjavatest.toyProject.post.infrastructure.PostEntity;
+import me.whiteship.inflearnjavatest.toyProject.post.domain.Post;
 
 import java.util.Optional;
 
 public interface PostRepository {
 
-    Optional<PostEntity> findById(long id);
+    Optional<Post> findById(long id);
 
-    PostEntity save(PostEntity postEntity);
+    Post save(Post post);
 }

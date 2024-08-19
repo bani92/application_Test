@@ -2,7 +2,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.controller;
 
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserUpdate;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
+import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.User;
 import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserJpaRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -67,11 +67,11 @@ public class UserControllerTest {
         //then
         mockMvc.perform(get("/api/users/2/verify").queryParam("certificationCode","aaaaaaa-aa"))
                 .andExpect(status().isFound());
-        UserEntity userEntity = userJpaRepository.findById(2L).get();
-        Assertions.assertThat(userEntity.getId()).isEqualTo(2L);
-        Assertions.assertThat(userEntity.getAddress()).isEqualTo("Seoul");
-        Assertions.assertThat(userEntity.getStatus()).isNotNull();
-        Assertions.assertThat(userEntity.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        User user = userJpaRepository.findById(2L).get();
+        Assertions.assertThat(user.getId()).isEqualTo(2L);
+        Assertions.assertThat(user.getAddress()).isEqualTo("Seoul");
+        Assertions.assertThat(user.getStatus()).isNotNull();
+        Assertions.assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
 

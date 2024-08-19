@@ -1,20 +1,20 @@
 package me.whiteship.inflearnjavatest.toyProject.user.service.port;
 
+import me.whiteship.inflearnjavatest.toyProject.user.domain.User;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
 
 import java.util.Optional;
 
 
 public interface UserRepository {
 
-    Optional<UserEntity> findById(long id);
+    Optional<User> findById(long id);
 
-    Optional<UserEntity> findByIdAndStatus(long id, UserStatus userStatus);
+    Optional<User> findByIdAndStatus(long id, UserStatus userStatus);
 
-    Optional<UserEntity> findByEmailAndStatus(String email, UserStatus userStatus);
+    Optional<User> findByEmailAndStatus(String email, UserStatus userStatus);
 
-    UserEntity save(UserEntity userEntity);
+    User save(User user);
 
 
 

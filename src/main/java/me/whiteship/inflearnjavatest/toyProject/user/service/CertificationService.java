@@ -1,10 +1,7 @@
 package me.whiteship.inflearnjavatest.toyProject.user.service;
 
 import lombok.RequiredArgsConstructor;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
 import me.whiteship.inflearnjavatest.toyProject.user.service.port.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service

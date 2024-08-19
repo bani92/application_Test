@@ -2,16 +2,14 @@ package me.whiteship.inflearnjavatest.toyProject.post.service;
 
 
 import lombok.RequiredArgsConstructor;
+import me.whiteship.inflearnjavatest.toyProject.post.domain.Post;
 import me.whiteship.inflearnjavatest.toyProject.post.service.port.PostRepository;
+import me.whiteship.inflearnjavatest.toyProject.user.domain.User;
 import me.whiteship.inflearnjavatest.toyProject.user.exception.ResourceNotFoundException;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostCreate;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostUpdate;
-import me.whiteship.inflearnjavatest.toyProject.post.infrastructure.PostEntity;
-import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserEntity;
 import me.whiteship.inflearnjavatest.toyProject.user.service.UserService;
 import org.springframework.stereotype.Service;
-
-import java.time.Clock;
 
 @Service
 @RequiredArgsConstructor
@@ -20,23 +18,22 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserService userService;
 
-    public PostEntity getById(long id) {
+    public Post getById(long id) {
         return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 
-    public PostEntity create(PostCreate postCreate) {
-        UserEntity userEntity = userService.getById(postCreate.getWriterId());
-        PostEntity postEntity = new PostEntity();
-        postEntity.setWriter(userEntity);
-        postEntity.setContent(postCreate.getContent());
-        postEntity.setCreatedAt(Clock.systemUTC().millis());
-        return postRepository.save(postEntity);
+    public Post create(PostCreate postCreate) {
+        User writer = userService.getById(postCreate.getWriterId());
+        System.out.println("Writer: " + writer);  // 디버깅 메시지 추가
+        Post post = Post.from(writer, postCreate);
+        System.out.println("Post: " + post);  // 디버깅 메시지 추가
+        return postRepository.save(post);
     }
 
-    public PostEntity update(long id, PostUpdate postUpdate) {
-        PostEntity postEntity = getById(id);
-        postEntity.setContent(postUpdate.getContent());
-        postEntity.setModifiedAt(Clock.systemUTC().millis());
-        return postRepository.save(postEntity);
+    public Post update(long id, PostUpdate postUpdate) {
+
+        Post post = getById(id);
+        post = post.update(postUpdate);
+        return postRepository.save(post);
     }
 }

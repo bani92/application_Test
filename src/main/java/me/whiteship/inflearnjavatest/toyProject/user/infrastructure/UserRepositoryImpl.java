@@ -14,22 +14,22 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserJpaRepository userJpaRepository;
 
     @Override
-    public Optional<UserEntity> findById(long id) {
-        return userJpaRepository.findById(id);
+    public Optional<me.whiteship.inflearnjavatest.toyProject.user.domain.User> findById(long id) {
+        return userJpaRepository.findById(id).map(User::toModel);
     }
 
     @Override
-    public Optional<UserEntity> findByIdAndStatus(long id, UserStatus userStatus) {
-        return userJpaRepository.findByIdAndStatus(id, userStatus);
+    public Optional<me.whiteship.inflearnjavatest.toyProject.user.domain.User> findByIdAndStatus(long id, UserStatus userStatus) {
+        return userJpaRepository.findByIdAndStatus(id, userStatus).map(User::toModel);
     }
 
     @Override
-    public Optional<UserEntity> findByEmailAndStatus(String email, UserStatus userStatus) {
-        return userJpaRepository.findByEmailAndStatus(email, userStatus);
+    public Optional<me.whiteship.inflearnjavatest.toyProject.user.domain.User> findByEmailAndStatus(String email, UserStatus userStatus) {
+        return userJpaRepository.findByEmailAndStatus(email, userStatus).map(User::toModel);
     }
 
     @Override
-    public UserEntity save(UserEntity userEntity) {
-        return userJpaRepository.save(userEntity);
+    public me.whiteship.inflearnjavatest.toyProject.user.domain.User save(me.whiteship.inflearnjavatest.toyProject.user.domain.User user) {
+        return userJpaRepository.save(User.fromModel(user)).toModel();
     }
 }

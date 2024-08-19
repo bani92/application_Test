@@ -1,8 +1,8 @@
 package me.whiteship.inflearnjavatest.toyProject.post.service;
 
+import me.whiteship.inflearnjavatest.toyProject.post.domain.Post;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostCreate;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostUpdate;
-import me.whiteship.inflearnjavatest.toyProject.post.infrastructure.PostEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +27,7 @@ class PostServiceTest {
         // given
         // when
 
-        PostEntity result = postService.getById(1);
+        Post result = postService.getById(1);
 
         // then
         assertThat(result.getContent()).isEqualTo("helloworld");
@@ -43,12 +43,12 @@ class PostServiceTest {
                 .build();
 
         // when
-        PostEntity postEntity = postService.create(postCreate);
+        Post post = postService.create(postCreate);
 
         // then
-        assertThat(postEntity.getId()).isNotNull();
-        assertThat(postEntity.getContent()).isEqualTo("foobar");
-        assertThat(postEntity.getCreatedAt()).isGreaterThan(0);
+        assertThat(post.getId()).isNotNull();
+        assertThat(post.getContent()).isEqualTo("foobar");
+        assertThat(post.getCreatedAt()).isGreaterThan(0);
     }
 
 
@@ -63,10 +63,10 @@ class PostServiceTest {
         postService.update(1, postUpdate);
 
         // then
-        PostEntity postEntity = postService.getById(1);
-        assertThat(postEntity.getId()).isEqualTo(1);
-        assertThat(postEntity.getContent()).isEqualTo("foobar22");
-        assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
+        Post post = postService.getById(1);
+        assertThat(post.getId()).isEqualTo(1);
+        assertThat(post.getContent()).isEqualTo("foobar22");
+        assertThat(post.getModifiedAt()).isGreaterThan(0);
     }
 
 }
