@@ -1,16 +1,31 @@
 package me.whiteship.inflearnjavatest.toyProject.user.domain;
 
+import me.whiteship.inflearnjavatest.toyProject.mock.TestUuidHolder;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTest {
 
     @Test
     public void UserCreate_객체로_생성할_수_있다() {
         // given
-
+        UserCreate userCreate = UserCreate.builder()
+                .email("banseok@naver.com")
+                .nickname("bani33")
+                .address("Seoul2")
+                .build();
         // when
+        User user = User.from(userCreate, new TestUuidHolder("a1234"));
 
         // then
+        assertThat(user.getId()).isNull();
+        assertThat(user.getEmail()).isEqualTo("banseok@naver.com");
+        assertThat(user.getNickname()).isEqualTo("bani33");
+        assertThat(user.getAddress()).isEqualTo("Seoul2");
+        assertThat(user.getStatus()).isEqualTo(UserStatus.PENDING);
+        assertThat(user.getCertificationCode()).isEqualTo("a1234");
 
     }
 

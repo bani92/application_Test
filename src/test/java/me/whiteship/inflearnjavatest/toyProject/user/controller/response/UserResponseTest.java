@@ -2,15 +2,13 @@ package me.whiteship.inflearnjavatest.toyProject.user.controller.response;
 
 import me.whiteship.inflearnjavatest.toyProject.user.domain.User;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class MyProfileResponseTest {
+public class UserResponseTest {
 
     @Test
     public void User으로_응답을_생성할_수_있다() {
@@ -25,13 +23,14 @@ class MyProfileResponseTest {
                 .build();
 
         // when
-        MyProfileResponse myProfileResponse = MyProfileResponse.from(user);
+        UserResponse userResponse = UserResponse.from(user);
 
         // then
-        assertThat(myProfileResponse.getId()).isEqualTo(1);
-        assertThat(myProfileResponse.getEmail()).isEqualTo("banseok@naver.com");
-        assertThat(myProfileResponse.getNickname()).isEqualTo("bani");
-        assertThat(myProfileResponse.getStatus()).isEqualTo(UserStatus.PENDING);
+        assertThat(userResponse.getId()).isEqualTo(1);
+        assertThat(userResponse.getEmail()).isEqualTo("banseok@naver.com");
+        assertThat(userResponse.getNickname()).isEqualTo("bani");
+        assertThat(userResponse.getStatus()).isEqualTo(UserStatus.PENDING);
+
 
     }
 }

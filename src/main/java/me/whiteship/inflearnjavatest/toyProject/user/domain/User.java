@@ -2,6 +2,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import me.whiteship.inflearnjavatest.toyProject.common.service.port.UuidHolder;
 import me.whiteship.inflearnjavatest.toyProject.user.exception.CertificationCodeNotMatchedException;
 
 import java.time.Clock;
@@ -29,13 +30,13 @@ public class User {
         this.lastLoginAt = lastLoginAt;
     }
 
-    public static User from(UserCreate userCreate) {
+    public static User from(UserCreate userCreate, UuidHolder uuidHolder) {
         return User.builder()
                 .email(userCreate.getEmail())
                 .nickname(userCreate.getNickname())
                 .address(userCreate.getAddress())
                 .status(UserStatus.PENDING)
-                .certificationCode(UUID.randomUUID().toString())
+                .certificationCode(uuidHolder.random())
                 .build();
     }
 

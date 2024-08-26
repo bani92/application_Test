@@ -3,6 +3,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.service;
 
 import lombok.RequiredArgsConstructor;
 
+import me.whiteship.inflearnjavatest.toyProject.common.service.port.UuidHolder;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.User;
 import me.whiteship.inflearnjavatest.toyProject.user.exception.ResourceNotFoundException;
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
@@ -18,7 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;
-
+    private final UuidHolder uuidHolder;
 
     public User getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
@@ -32,7 +33,7 @@ public class UserService {
 
     @Transactional
     public User create(UserCreate userCreate) {
-        User user = User.from(userCreate);
+        User user = User.from(userCreate, uuidHolder);
         user = userRepository.save(user);
         certificationService.send(userCreate.getEmail(), user.getId(), user.getCertificationCode());
         return user;
