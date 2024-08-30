@@ -2,6 +2,7 @@ package me.whiteship.inflearnjavatest.toyProject.user.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import me.whiteship.inflearnjavatest.toyProject.common.service.port.ClockHolder;
 import me.whiteship.inflearnjavatest.toyProject.common.service.port.UuidHolder;
 import me.whiteship.inflearnjavatest.toyProject.user.exception.CertificationCodeNotMatchedException;
 
@@ -52,7 +53,7 @@ public class User {
                 .build();
     }
 
-    public User login() {
+    public User login(ClockHolder clockHolder) {
         return User.builder()
                 .id(id)
                 .email(email)
@@ -60,7 +61,7 @@ public class User {
                 .address(address)
                 .certificationCode(certificationCode)
                 .status(status)
-                .lastLoginAt(Clock.systemUTC().millis())
+                .lastLoginAt(clockHolder.millis())
                 .build();
     }
 
@@ -75,7 +76,7 @@ public class User {
                 .nickname(nickname)
                 .address(address)
                 .certificationCode(certificationCode)
-                .status(status)
+                .status(UserStatus.ACTIVE)
                 .lastLoginAt(lastLoginAt)
                 .build();
     }
