@@ -1,6 +1,8 @@
-package me.whiteship.inflearnjavatest.toyProject.user.infrastructure;
+package me.whiteship.inflearnjavatest.toyProject.medium;
 
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserStatus;
+import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.User;
+import me.whiteship.inflearnjavatest.toyProject.user.infrastructure.UserJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

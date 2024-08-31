@@ -1,4 +1,4 @@
-package me.whiteship.inflearnjavatest.toyProject.common.controller;
+package me.whiteship.inflearnjavatest.toyProject.medium;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

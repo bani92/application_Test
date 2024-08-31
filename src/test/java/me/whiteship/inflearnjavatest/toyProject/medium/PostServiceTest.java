@@ -1,8 +1,9 @@
-package me.whiteship.inflearnjavatest.toyProject.post.service;
+package me.whiteship.inflearnjavatest.toyProject.medium;
 
 import me.whiteship.inflearnjavatest.toyProject.post.domain.Post;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostCreate;
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostUpdate;
+import me.whiteship.inflearnjavatest.toyProject.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,7 +45,7 @@ class PostServiceTest {
 
         // when
         Post post = postService.create(postCreate);
-
+        System.out.println(post.getCreatedAt());
         // then
         assertThat(post.getId()).isNotNull();
         assertThat(post.getContent()).isEqualTo("foobar");

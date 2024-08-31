@@ -1,6 +1,7 @@
 package me.whiteship.inflearnjavatest.toyProject.user.service;
 
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import me.whiteship.inflearnjavatest.toyProject.common.service.port.ClockHolder;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 
@@ -44,7 +46,7 @@ public class UserService {
     @Transactional
     public User update(long id, UserUpdate userUpdate) {
         User user = getById(id);
-        user.update(userUpdate);
+        user = user.update(userUpdate);
         user = userRepository.save(user);
         return user;
     }

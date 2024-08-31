@@ -1,4 +1,4 @@
-package me.whiteship.inflearnjavatest.toyProject.user.controller;
+package me.whiteship.inflearnjavatest.toyProject.medium;
 
 import me.whiteship.inflearnjavatest.toyProject.user.domain.UserCreate;
 import org.junit.jupiter.api.Test;

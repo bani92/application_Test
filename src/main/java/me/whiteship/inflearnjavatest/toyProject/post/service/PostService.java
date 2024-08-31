@@ -27,7 +27,11 @@ public class PostService {
         System.out.println("Writer: " + writer);  // 디버깅 메시지 추가
         Post post = Post.from(writer, postCreate);
         System.out.println("Post: " + post);  // 디버깅 메시지 추가
-        return postRepository.save(post);
+        System.out.println("Post_getCreatedAt : " + post.getCreatedAt());  // 디버깅 메시지 추가
+        post = postRepository.save(post);
+        System.out.println("post.getCreatedAt() = " + post.getCreatedAt());
+
+        return post;
     }
 
     public Post update(long id, PostUpdate postUpdate) {

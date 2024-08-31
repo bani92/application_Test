@@ -1,4 +1,4 @@
-package me.whiteship.inflearnjavatest.toyProject.post.controller;
+package me.whiteship.inflearnjavatest.toyProject.medium;
 
 import me.whiteship.inflearnjavatest.toyProject.post.domain.PostUpdate;
 import org.junit.jupiter.api.Test;
